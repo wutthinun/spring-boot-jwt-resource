@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @RequestMapping("api")
 public class AuthController {
 
-    private static final long EXPIRY = 36000L;
+    private static final long EXPIRY = 86400L;
     private final AuthenticationManager authenticationManager;
     private final JwtEncoder jwtEncoder;
 
