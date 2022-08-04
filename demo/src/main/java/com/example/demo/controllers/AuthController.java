@@ -48,6 +48,7 @@ public class AuthController {
                 .issuedAt(now)
                 .expiresAt(now.plusSeconds(EXPIRY))
                 .claim("roles", scope)
+                .claim("username", body.username())
                 .build();
 
         String token = jwtEncoder.encode(JwtEncoderParameters.from(claimsSet)).getTokenValue();
