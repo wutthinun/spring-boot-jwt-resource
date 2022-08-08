@@ -2,7 +2,9 @@
   <div class="container h-100">
     <div class="row d-md-flex justify-content-center align-items-center h-50">
       <div class="col-12 col-md-4 bg-white p-3 rounded">
-        <form @submit="onSubmit">
+        <form
+            @submit.prevent="onSubmit"
+        >
           <div class="mb-3">
             <label for="username" class="form-label">Username</label>
             <input type="text" class="form-control" id="username"
@@ -22,7 +24,7 @@
           </div>
 
           <div class="text-end">
-            <button type="button" class="btn btn-primary"
+            <button type="submit" class="btn btn-primary"
                     @click="onSubmit"
             >Sign In</button>
           </div>
@@ -31,7 +33,7 @@
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 
 import {ref} from 'vue';
 import {useRouter} from 'vue-router';
@@ -43,6 +45,7 @@ const password = ref(null)
 const router = useRouter()
 
 const onSubmit = async () => {
+  console.log('tom ==> submit')
   const response = await fetch(`${BASE_URL}/public/login`, {
     method: 'POST',
     headers: {

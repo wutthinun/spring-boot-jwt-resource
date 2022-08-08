@@ -1,8 +1,8 @@
 <template>
- Hello : {{user?.title}} {{user?.firstName}} {{user?.lastName}}
+  Hello : {{ user?.title }} {{ user?.firstName }} {{ user?.lastName }}
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {onMounted, ref} from 'vue';
 import {useRouter} from 'vue-router';
 
@@ -11,12 +11,18 @@ const router = useRouter()
 const BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 const loadUser = async () => {
-    const res = await fetch(`${BASE_URL}/me`, {
-      headers: {
-        'authorization': `bearer ${localStorage.getItem('token')}`
-      }
-    })
-    user.value = await res.json()
+  const res = await fetch(`${BASE_URL}/me`, {
+    headers: {
+      'authorization': `bearer ${localStorage.getItem('token')}`
+    }
+  })
+
+  if (res.status === 401)
+    router.push('/login')
+
+  if (res.ok) {
+    user.value = await res.json();
+  }
 }
 
 onMounted(() => {
